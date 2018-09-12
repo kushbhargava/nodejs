@@ -1,0 +1,18 @@
+{
+  "name": "npm-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kushagra bhargava",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.2.14",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.6"
+  }
+}

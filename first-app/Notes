@@ -1,0 +1,14 @@
+Event is a signal that something has happend.
+Event listener has tobe called before calling the emmiter.
+If you need to create an eventEmitter in your application you will have to create a class that extends EventEmitter.
+Any onject of that class will have all the eventEmitter's properties and we can use the properties inside the class to with the help of this keyword.
+We will have to include 'events' at both the places where we are using as well as declaring the class for eventEmitter.
+Whenever you create a node project run npm init to create package.json
+How require module checks for the dependencies :-                                                                           1.check in core modules                                                                                                         2.check in files and folders(wiith ./)                                                                                      3.Check in node_modules which contains the various dependencies.
+For installing a new module from npm:- npm install <package-name>
+eg. npm install mongoose
+All the dependencies that we add are specified in package.json . When we do npm install it downloads all the required packages in node_modules folder.
+When doing the version-controlling/commiting the code we dont waht to commit node_modules folder as it can be 100s of mbs in size so we include it inside .gitignore file.
+In any case if our application is using some packages whicha are also been used by the core packages if our application then they are installed in the node_modules folder only. If the versions that are being used are different then the one we are using will be inside the node_modules folder and the one that the code modules are using will be inside there node_modules folder.
+Node.js have semantic versioning. like : 4.13.6 , 4 is major version , 13 is minor version and 6 is patch version for bug fixes.
+When we see the package.json file it has versions specified like "^4.13.6", this '^' tell the npm that we are interested in all the version update that has major version as 4. Other ways of doing this are :  '4.x' and '~4.13.6'. We can also fix the minor version with '4.13.x'. To fix the version we have to remove ^ or ~ .

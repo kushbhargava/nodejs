@@ -1,0 +1,25 @@
+`git init` will initialize the git repository in the folder
+`git status` give all the files which are present in the folder and give there status
+`git add .` stage all the files for commit
+`git add <file-name>` stage only specified file
+`git commit -m 'message'` commit the staged files with the specified message.
+
+`npm install <package-name>` to install a particualr package
+`npm install` will check the dependencies from package.json file and install all the dependencies.
+
+`npm list` will give you all the dependencies with their versions.
+`npm list --depth=0` will give you only the dependencies that you have added not the dependencies of the packages
+`npm view mongoose` will give you all the dependencies of mongoose and all the other meta data that is there in the package.json file of mongoose
+`npm view mongoose dependencies` will give all the dependencies of mongoose package with their versions.
+`npm view mongoose versions` will give you all the versions of mongoose that are released till date.
+`npm install mongoose@2.4.2` installing a specified version.
+
+`npm update` update the minor or patch release
+`npm install -g npm-check-updates` adding a new command line tool for updating the dependencies to their very latest version
+`npm-check-updates` gives you all the outdated packages and their latest versions.
+`npm-check-updates -u` will upgrade the version of outdated dependencies.(updating the package.json). For installing the latest version we will have to run `npm install`
+`npm outdated` will give all the packages with outdated versions
+`npm i jshint --save-dev` adding a dev dependencies which will not move to production environment.
+`npm un mongoose` uninstalling a package
+
+For installing a package globally we have to use `-g` flag like :-`npm i -g npm`

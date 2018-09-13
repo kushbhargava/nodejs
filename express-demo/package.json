@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "express-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "add-me-9898": "^1.2.1",
-    "expres": "0.0.5"
+    "express": "^4.16.3"
   }
 }

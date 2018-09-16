@@ -1,72 +1,35 @@
-const express = require('express');
-const Joi = require('joi');
+const express = require('express');//Used for creating rest api
+const Joi = require('joi'); //used for validation
+const morgan = require('morgan'); //used for logging
+const config = require('config'); // used for configuration
+const authentication = require('./authentication'); //User defined middelware
+const genres = require('./routes/genres'); //Refactoring of API
+const home = require('./routes/home');
 const app = express();
 
-app.use(express.json());
+console.log(`Server name : ${config.get('name')}`);
+console.log(`Mail host : ${config.get('mail.host')}`);
 
-const genres = [
-    { id: 1, name: 'Rock' },
-    { id: 2, name: 'Classical' },
-    { id: 3, name: 'Hip-hop' },
-    { id: 4, name: 'EDM' },
-];
+app.set('view engine', 'pug');
+app.set('views', './views');
 
-app.get('/', (req, res) => {
-    res.send('Hello World!!');
+app.use(express.json()); //Express middleware for json payload
+app.use(express.urlencoded({ extended: true })); //External express middleware for urlencoded payload
+app.use(express.static('public')); //External express middleware for static requests
+app.use(authentication); //User defined middleware for authentication
+app.use(function (req, res, next) { //User defined middleware for logger
+    console.log('Logging!!!');
+    next();
 });
 
-app.get('/api/generes', (req, res) => {
-    res.send(genres);
-});
+app.use('/api/genres', genres); //Using the outsourced API
+app.use('/', home);
 
-app.get('/api/generes/:id', (req, res) => {
-    const genere = genres.find(g => g.id === parseInt(req.params.id));
-    if (!genere) return res.status(404).send('Genere not found!!');
-    res.send(genere);
-});
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('Morgan running on development!!!');
+}
 
-app.post('/api/generes', (req, res) => {
-    const { error } = validateGenre(req.body);
+const port = process.env.PORT || 3000;
 
-    if (error) return res.status(400).send(error.details[0].message);
-
-    const genre = {
-        id: genres.length + 1,
-        name: req.body.name
-    };
-
-    genres.push(genre);
-    res.send(genre);
-});
-
-app.put('/api/generes/:id', (req, res) => {
-
-    const genere = genres.find(g => g.id === parseInt(req.params.id));
-    if (!genere) return res.status(404).send('Not found!!!');
-
-    const { error } = validateGenre(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    genere.name = req.body.name;
-    res.send(genere);
-
-});
-
-app.delete('/api/generes/:id', (req, res) => {
-    const genere = genres.find(g => g.id === parseInt(req.params.id));
-    if (!genere) return res.status(404).send('Not found!!!');
-
-    const index = genres.indexOf(genere);
-    genres.splice(index, 1);
-
-    res.send(genere);
-});
-
-function validateGenre(genre) {
-    const schema = {
-        name: Joi.string().min(4).required()
-    };
-    return Joi.validate(genre, schema);
-};
-
-app.listen(3000, () => console.log(`Listening to the port 3000...`));
+app.listen(3000, () => console.log(`Listening to the port ${port}...`));

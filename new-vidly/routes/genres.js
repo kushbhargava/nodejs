@@ -1,26 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const Joi = require('joi'); //used for validation
+
+const { Genre, validateGenre } = require('../modals/genres');
+
 const router = express.Router();
-
-const genreSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 4,
-        maxlength: 25
-    }
-});
-
-const Genre = mongoose.model('Genre', genreSchema);
-
-
-const genres = [
-    { id: 1, name: 'Rock' },
-    { id: 2, name: 'Classical' },
-    { id: 3, name: 'Hip-hop' },
-    { id: 4, name: 'EDM' },
-];
 
 router.get('/', async (req, res) => {
     const genres = await Genre
@@ -67,15 +49,4 @@ router.delete('/:id', async (req, res) => {
     res.send(result);
 });
 
-function validateGenre(genre) {
-    const schema = {
-        name: Joi.string().min(4).required()
-    };
-    return Joi.validate(genre, schema);
-}
-
-module.exports.genreSchema = genreSchema;
-
-module.exports.Genre = Genre;
-
-module.exports.router = router;
+module.exports.genres = router;

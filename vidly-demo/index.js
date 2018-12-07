@@ -2,8 +2,9 @@ const express = require('express');//Used for creating rest api
 const morgan = require('morgan'); //used for logging
 const config = require('config'); // used for configuration
 const authentication = require('./authentication'); //User defined middelware
-const genres = require('./routes/genres'); //Refactoring of API
+const { router } = require('./routes/genres'); //Refactoring of API
 const home = require('./routes/home');
+const movies = require('./routes/movies');
 const mongoose = require('mongoose');
 var path = require('path');
 var fs = require('fs');
@@ -36,9 +37,9 @@ if (app.get('env') === 'development') {
     console.log('Morgan running on development!!!');
 }
 
-app.use('/api/genres', genres); //Using the outsourced API
+app.use('/api/genres', router); //Using the outsourced API
+app.use('/api/movies', movies); //Using the outsourced API
 app.use('/', home);
-
 
 
 const port = process.env.PORT || 3000;

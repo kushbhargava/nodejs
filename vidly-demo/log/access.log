@@ -20,3 +20,15 @@ POST /api/genres 200 61 - 50.392 ms
 POST /api/genres 400 48 - 4.865 ms
 POST /api/genres 200 56 - 7.886 ms
 POST /api/genres 400 99 - 42.320 ms
+GET / 200 90 - 2581.486 ms
+GET / 304 - - 95.532 ms
+GET /favicon.ico 404 150 - 1.780 ms
+GET /api/movies - - - - ms
+GET /api/genres 200 177 - 16.064 ms
+POST /api/movies - - - - ms
+POST /api/movies 400 24 - 29.267 ms
+POST /api/movies 200 158 - 97.560 ms
+POST /api/movies 400 16 - 8.480 ms
+POST /api/movies 400 16 - 6.013 ms
+POST /api/movies 200 158 - 126.624 ms
+GET /api/movies 200 160 - 52.746 ms

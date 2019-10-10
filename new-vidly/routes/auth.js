@@ -1,9 +1,10 @@
 const express = require('express');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const Joi = require('joi');
 const router = express.Router();
 
-const { User} = require('../modals/user');
+const { User } = require('../modals/user');
 
 
 router.post('/register', async (req, res) => {
@@ -11,6 +12,7 @@ router.post('/register', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     let user = await User.findOne({ email: req.body.email });
+
     if (user)
         return res.status(400).send('User is already registered!');
 
@@ -21,7 +23,8 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    res.send(_.pick(user, ['_id', 'name', 'email']));
+    const jwtToken = user.generateAuthToken();
+    res.header('x-auth-token', jwtToken).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
 router.get('/', async (req, res) => {
@@ -36,6 +39,7 @@ function validate(user) {
         password: Joi.string().required().min(5).max(255)
     };
     return Joi.validate(user, schema);
+
 }
 
-exports.users = router;
+module.exports.auth = router;

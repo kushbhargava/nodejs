@@ -7,6 +7,8 @@ const { movies } = require('./routes/movies');
 const { customers } = require('./routes/customer');
 const { rentals } = require('./routes/rental');
 const { users } = require('./routes/user');
+const { auth } = require('./routes/auth');
+
 
 const app = express();
 
@@ -14,13 +16,15 @@ mongoose.connect("mongodb://localhost/vidly", { useNewUrlParser: true })
     .then(() => console.log("Mongodb connected...."))
     .catch((err) => console.log('Db connection failed ', err));
 
-    app.use(express.json());
-    
-    app.use('/api/genres', genres);
-    app.use('/api/movies', movies);
-    app.use('/api/customers', customers);
-    app.use('/api/rentals', rentals);
-    app.use('/api/users', users);
+app.use(express.json());
+
+app.use('/api/genres', genres);
+app.use('/api/movies', movies);
+app.use('/api/customers', customers);
+app.use('/api/rentals', rentals);
+app.use('/api/users', users);
+app.use('/api/auth', auth);
+
 
 const port = process.env.PORT || 3000;
 
